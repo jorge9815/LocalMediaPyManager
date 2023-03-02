@@ -1,0 +1,10 @@
+
+venv
+
+templates
+
+static
+
+__pycache__
+
+.idea
