@@ -44,3 +44,12 @@ class Reader:
         for supported_format in self.VIDEO_FORMATS:
             if supported_format in item:
                 self.add_video(item, path)
+
+    def get_video_info(self, video_title):
+        for item in self.media_collection:
+            if video_title in item:
+                return item
+        else:
+            return f"Video {video_title} could not be found"
+
+
