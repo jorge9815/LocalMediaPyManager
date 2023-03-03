@@ -1,7 +1,15 @@
+from json import JSONEncoder
+
+from flask import json
+
+
 class Video:
-    def __int__(self, title, route):
+    def __init__(self, title, route):
         self.title = title
         self.route = route
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__)
 
 
 class Folder:
@@ -11,3 +19,6 @@ class Folder:
         self.items_amount = items
         self.videos = videos
         self.image = image
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__)
