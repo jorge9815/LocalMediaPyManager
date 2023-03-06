@@ -8,8 +8,11 @@ class Video:
         self.title = title
         self.route = route
 
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__)
+    def to_json(self):
+        return {
+            'title': self.title,
+            'route': self.route
+        }
 
 
 class Folder:
@@ -20,5 +23,11 @@ class Folder:
         self.videos = videos
         self.image = image
 
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__)
+    def to_json(self):
+        return {
+            'title': self.title,
+            'directory': self.directory,
+            'items_amount': self.items_amount,
+            'self.videos': self.videos,
+            'self.image': self.image
+        }

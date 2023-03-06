@@ -34,13 +34,13 @@ class Reader:
                         video_list.append(Video(item_in_folder, path))
                         break
             folder = Folder(item, path, len(subdirectories), video_list, [])
-            self.media_collection.append(folder.toJSON())
+            self.media_collection.append(folder.to_json())
 
     def add_video(self, item, path):
         vid = Video(item, path)
-        self.media_collection.append(vid.toJSON())
+        self.media_collection.append(vid.to_json())
 
-    def get_files_with_suported_format(self, item, path):
+    def get_files_with_supported_format(self, item, path):
         for supported_format in self.VIDEO_FORMATS:
             if supported_format in item:
                 self.add_video(item, path)
