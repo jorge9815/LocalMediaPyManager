@@ -1,0 +1,38 @@
+#headerBar {
+    width: 100%;
+    height: 3rem;
+    background-color: aqua;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+#headerBar h2 {
+    margin: 1rem;
+}
+
+#refreshLogo {
+    width: 3rem;
+    margin: 1rem;
+}
+
+#dataCOntainer{
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.item {
+    width: 95%;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.mediaIcon{
+        width: 3rem;
+        margin: 1rem;
+    }
