@@ -9,7 +9,7 @@ readerO = Reader()
 
 @app.route('/media', methods=['GET'])
 def get_media():
-    return jsonify(readerO.read_main_directories())
+    return jsonify(readerO.read())
 
 
 @app.route("/media/<video_title>", methods=['GET'])

@@ -1,55 +1,30 @@
 import os
 
-from media.domain.entity.media import Video, Folder
-
 
 class Reader:
-
     def __init__(self):
         # , "Y://Series//Trasmision", "Y://Series//Finalizadas"
         self.LOCAL_DIRECTORIES = ["D://movies", "D://Edited"]
         self.VIDEO_FORMATS = [".mp4", ".avi", ".ts", ".mkv", ".srt"]
-        self.media_collection = []
+        self.structure = {}
 
-    def read_main_directories(self):
-        self.media_collection = []
-        for path in self.LOCAL_DIRECTORIES:
-            for item in os.listdir(path):
-                self.obtain_files(item, path)
-        return self.media_collection
+    def read(self):
+        for route in self.LOCAL_DIRECTORIES:
+            self.get_directory_structure(route)
+        return self.structure
 
-    def obtain_files(self, item, path):
-        for supported_format in self.VIDEO_FORMATS:
-            if supported_format in item:
-                self.add_video(item, path)
-                break
-        else:
-            new_path = f"{path}//{item}"
-            subdirectories = os.listdir(new_path)
-
-            video_list = []
-            for item_in_folder in subdirectories:
-                for supported_format2 in self.VIDEO_FORMATS:
-                    if supported_format2 in item_in_folder:
-                        video_list.append(Video(item_in_folder, path))
-                        break
-            folder = Folder(item, path, len(subdirectories), video_list, [])
-            self.media_collection.append(folder.to_json())
-
-    def add_video(self, item, path):
-        vid = Video(item, path)
-        self.media_collection.append(vid.to_json())
-
-    def get_files_with_supported_format(self, item, path):
-        for supported_format in self.VIDEO_FORMATS:
-            if supported_format in item:
-                self.add_video(item, path)
+    def get_directory_structure(self, path):
+        for entry in os.scandir(path):
+            if entry.is_dir():
+                self.structure[entry.name] = self.get_directory_structure(entry.path)
+            else:
+            #     for format in self.VIDEO_FORMATS:
+            #         if entry.name.endswith(format):
+                 self.structure[entry.name] = {
+                            'path': entry.path,
+                            'type': "video",
+                            "size": os.stat(entry).st_size
+                        }
 
     def get_video_info(self, video_title):
-        for item in self.media_collection:
-            if video_title in item:
-                return item
-        else:
-            return f"Video {video_title} could not be found"
-
-
+        return self.structure[video_title]
